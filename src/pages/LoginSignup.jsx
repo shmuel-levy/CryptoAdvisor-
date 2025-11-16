@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { useAuth } from '../contexts/AuthContext'
 import { login, signup } from '../store/user.actions'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 
@@ -14,6 +15,7 @@ export function LoginSignup() {
     })
     const [errorMsg, setErrorMsg] = useState('')
     const navigate = useNavigate()
+    const { login: authLogin } = useAuth()
 
     function handleChange({ target }) {
         const { name: field, value } = target
@@ -23,17 +25,23 @@ export function LoginSignup() {
     async function handleSubmit(ev) {
         ev.preventDefault()
         try {
-            let user
+            let response
             if (isSignup) {
-                user = await signup(credentials)
-                showSuccessMsg(`Welcome, ${user.firstName || user.email}`)
+                response = await signup(credentials)
+                showSuccessMsg(`Welcome, ${response.user.firstName || response.user.email}`)
             } else {
-                user = await login({ email: credentials.email, password: credentials.password })
-                showSuccessMsg(`Welcome back, ${user.firstName || user.email}`)
+                response = await login({ email: credentials.email, password: credentials.password })
+                showSuccessMsg(`Welcome back, ${response.user.firstName || response.user.email}`)
             }
+            
+            // Store token and user in AuthContext
+            authLogin(response.token, response.user)
+            
+            // Check if user has completed onboarding (you can add this check later)
+            // For now, always redirect to onboarding
             navigate('/onboarding')
         } catch (err) {
-            const msg = err?.message || 'Authentication failed, try again later.'
+            const msg = err?.response?.data?.message || err?.message || 'Authentication failed, try again later.'
             setErrorMsg(msg)
             showErrorMsg(msg)
         }
