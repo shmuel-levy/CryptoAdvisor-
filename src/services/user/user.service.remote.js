@@ -1,4 +1,5 @@
 import { httpService } from '../http.service'
+import { storageService } from '../storage.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
@@ -37,16 +38,22 @@ async function update({ _id, score }) {
 
 async function login(userCred) {
     // Send in backend format: {email, password}
-	const user = await httpService.post('auth/login', {
+    // Backend returns: { token, user }
+	const response = await httpService.post('auth/login', {
         email: userCred.email,
         password: userCred.password
     })
-	if (user) return _saveLocalUser(user)
+    // Return both token and user for AuthContext
+    return {
+        token: response.token,
+        user: response.user
+    }
 }
 
 async function signup(userCred) {
     // Send in backend format: {email, firstName, lastName, profileImg, password, role}
-    const user = await httpService.post('auth/signup', {
+    // Backend returns: { token, user }
+    const response = await httpService.post('auth/signup', {
         email: userCred.email,
         firstName: userCred.firstName,
         lastName: userCred.lastName,
@@ -54,16 +61,22 @@ async function signup(userCred) {
         password: userCred.password,
         role: userCred.role || 'user'
     })
-	return _saveLocalUser(user)
+    // Return both token and user for AuthContext
+    return {
+        token: response.token,
+        user: response.user
+    }
 }
 
 async function logout() {
-	sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
+	storageService.removeSession(STORAGE_KEY_LOGGEDIN_USER)
+	storageService.remove('authToken')
+	storageService.remove('authUser')
 	return await httpService.post('auth/logout')
 }
 
 function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    return storageService.loadSession(STORAGE_KEY_LOGGEDIN_USER)
 }
 
 function _saveLocalUser(user) {
@@ -82,6 +95,6 @@ function _saveLocalUser(user) {
         role: user.role
     }
     
-	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(userToStore))
+	storageService.saveSession(STORAGE_KEY_LOGGEDIN_USER, userToStore)
 	return userToStore
 }
