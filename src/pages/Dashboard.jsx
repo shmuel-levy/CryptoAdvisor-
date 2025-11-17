@@ -24,21 +24,25 @@ export function Dashboard() {
 
   return (
     <section className="dashboard-page">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1>Dashboard</h1>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          {user && (
-            <span>Welcome, {user.firstName || user.email}</span>
-          )}
-          <button onClick={handleLogout} className="btn-logout">
-            Logout
-          </button>
+      <div className="dashboard-content">
+        <div className="dashboard-header">
+          <h1>Dashboard</h1>
+          <div className="header-actions">
+            {user && (
+              <span className="user-greeting">
+                Welcome, {user.firstName || user.email}
+              </span>
+            )}
+            <button onClick={handleLogout} className="btn-logout">
+              Logout
+            </button>
+          </div>
         </div>
+        <p>
+          This will become the personalized crypto dashboard with news, prices,
+          AI insight, and memes.
+        </p>
       </div>
-      <p>
-        This will become the personalized crypto dashboard with news, prices,
-        AI insight, and memes.
-      </p>
     </section>
   )
 }
