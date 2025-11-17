@@ -49,15 +49,18 @@ Create `.env.local` file in the root directory:
 ```env
 # Backend API URL
 # Development: http://localhost:3030/api
-# Production: /api (relative path)
-VITE_API_BASE_URL=http://localhost:3030/api
+# Production (Vercel): Set VITE_API_URL in Vercel dashboard to: https://cryptoadvisor-backend.onrender.com/api
+VITE_API_URL=http://localhost:3030/api
 
 # Optional: AI Service API Keys (if calling from frontend)
 # VITE_OPENROUTER_API_KEY=your-key-here
 # VITE_HF_API_KEY=your-key-here
 ```
 
-**Note**: The `.env.local` file is gitignored. Copy the values above and create your own file.
+**Note**: 
+- The `.env.local` file is gitignored. Copy the values above and create your own file.
+- For production on Vercel, set `VITE_API_URL` in Vercel dashboard → Settings → Environment Variables
+- Value should be: `https://cryptoadvisor-backend.onrender.com/api`
 
 ## Scripts
 

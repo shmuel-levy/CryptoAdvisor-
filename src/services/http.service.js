@@ -1,9 +1,8 @@
 import Axios from 'axios'
 import { storageService } from './storage.service'
 
-const BASE_URL = process.env.NODE_ENV === 'production'
-    ? '/api/'
-    : 'http://localhost:3030/api/'
+// Use environment variable for API URL, fallback to localhost for development
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3030/api/'
 
 const axios = Axios.create({ withCredentials: true })
 
