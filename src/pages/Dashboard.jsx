@@ -6,6 +6,8 @@ import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 import { dashboardService } from '../services/dashboard.service'
 import { CoinPricesSection } from '../cmps/dashboard/CoinPricesSection'
 import { MarketNewsSection } from '../cmps/dashboard/MarketNewsSection'
+import { AIInsightSection } from '../cmps/dashboard/AIInsightSection'
+import { MemeSection } from '../cmps/dashboard/MemeSection'
 
 export function Dashboard() {
   const { user, logout: authLogout } = useAuth()
@@ -125,18 +127,16 @@ export function Dashboard() {
           />
         )}
 
-        {dashboardData?.aiInsight && !dashboardData.aiInsight.insight && (
-          <div className="coming-soon-section">
-            <h2>AI Insights</h2>
-            <p>Coming soon...</p>
-          </div>
+        {dashboardData?.aiInsight && (
+          <AIInsightSection
+            insight={dashboardData.aiInsight.insight}
+            generatedAt={dashboardData.aiInsight.generatedAt}
+            model={dashboardData.aiInsight.model}
+          />
         )}
 
-        {dashboardData?.meme && !dashboardData.meme.url && (
-          <div className="coming-soon-section">
-            <h2>Crypto Memes</h2>
-            <p>Coming soon...</p>
-          </div>
+        {dashboardData?.meme && (
+          <MemeSection meme={dashboardData.meme} />
         )}
       </div>
     </section>
