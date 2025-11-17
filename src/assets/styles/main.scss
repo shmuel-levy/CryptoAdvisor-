@@ -139,15 +139,43 @@ input[type="password"] {
   align-items: center;
   justify-content: center;
   padding: 24px;
+  position: relative;
+  overflow: hidden;
+
+  .login-video-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    object-fit: cover;
+  }
+
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
 
   .main-container {
     width: 100%;
     max-width: 400px;
-    background: $bg;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     border-radius: 16px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
     padding: 40px 32px;
-    border: 1px solid $border;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 2;
 
     h1 {
       font-size: 28px;
@@ -268,7 +296,7 @@ input[type="password"] {
 
   .onboarding-container {
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
     background: $bg;
     border-radius: 16px;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -280,15 +308,266 @@ input[type="password"] {
       font-weight: 700;
       color: $text;
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
       letter-spacing: -0.02em;
     }
 
-    p {
+    .onboarding-subtitle {
       font-size: 16px;
       color: $text-light;
       text-align: center;
+      margin-bottom: 32px;
       line-height: 1.6;
+    }
+
+    .onboarding-error {
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      background: rgba(239, 68, 68, 0.1);
+      color: $error;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .onboarding-header {
+      margin-bottom: 32px;
+
+      h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: $text;
+        text-align: center;
+        margin-bottom: 24px;
+        letter-spacing: -0.02em;
+      }
+
+      .progress-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .progress-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+
+        .step-number {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+          font-weight: 600;
+          color: $text-light;
+          background: $bg-gray;
+          border: 2px solid $border;
+          transition: all 0.2s;
+          cursor: pointer;
+          user-select: none;
+
+          &:hover {
+            border-color: $primary;
+            background: rgba(37, 99, 235, 0.1);
+            transform: scale(1.05);
+          }
+
+          &.active {
+            background: $primary;
+            color: white;
+            border-color: $primary;
+          }
+
+          &.current {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+          }
+        }
+
+        .step-label {
+          font-size: 12px;
+          color: $text-light;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+
+      .progress-line {
+        width: 60px;
+        height: 2px;
+        background: $border;
+        margin: 0 4px;
+        margin-top: -20px;
+      }
+    }
+
+    .onboarding-form {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .form-question {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .question-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: $text;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        .required {
+          color: $error;
+        }
+      }
+
+      .question-hint {
+        font-size: 14px;
+        color: $text-light;
+        margin: 0;
+      }
+
+      .options-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .option-button {
+        padding: 12px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        color: $text;
+        background: $bg;
+        border: 1px solid $border;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+
+        &:hover {
+          border-color: $primary;
+          background: rgba(37, 99, 235, 0.05);
+        }
+
+        &.selected {
+          background: $primary;
+          color: white;
+          border-color: $primary;
+        }
+      }
+
+      .options-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border: 1px solid $border;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+          border-color: $primary;
+          background: rgba(37, 99, 235, 0.05);
+        }
+
+        input[type="radio"] {
+          width: 18px;
+          height: 18px;
+          margin: 0;
+          cursor: pointer;
+          accent-color: $primary;
+        }
+
+        span {
+          font-size: 14px;
+          color: $text;
+        }
+
+        input[type="radio"]:checked + span {
+          font-weight: 500;
+        }
+      }
+
+      .field-error {
+        font-size: 14px;
+        color: $error;
+        margin-top: -4px;
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    .btn-back {
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: 500;
+      color: $text;
+      background: $bg;
+      border: 1px solid $border;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover:not(:disabled) {
+        background: $bg-gray;
+        border-color: $text-light;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+
+    .btn-continue,
+    .btn-finish {
+      padding: 14px 32px;
+      font-size: 16px;
+      font-weight: 500;
+      color: white;
+      background: $primary;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover:not(:disabled) {
+        background: $primary-dark;
+      }
+
+      &:active:not(:disabled) {
+        transform: translateY(1px);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
     }
   }
 }
