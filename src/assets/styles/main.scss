@@ -601,6 +601,198 @@ input[type="password"] {
   }
 }
 
+.ai-insight-section {
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 24px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+
+  .insight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .model-badge {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  .insight-content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .insight-text {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+    font-weight: 500;
+    color: white;
+  }
+
+  .insight-date {
+    font-size: 12px;
+    opacity: 0.85;
+    margin: 0;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .no-data {
+    padding: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
+}
+
+.meme-section {
+  margin-bottom: 32px;
+  background: $bg;
+  border-radius: 12px;
+  padding: 24px;
+  border: 2px solid $border;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  .meme-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: $text;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .meme-source-badge {
+      background: $text-light;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+  }
+
+  .meme-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .meme-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .meme-error {
+    padding: 40px 20px;
+    text-align: center;
+    color: $text-light;
+    background: $bg-gray;
+    border-radius: 8px;
+    border: 1px dashed $border;
+    font-size: 14px;
+    max-width: 600px;
+    margin: 0 auto;
+
+    p {
+      margin: 0 0 8px 0;
+    }
+
+    .meme-url-hint {
+      font-size: 12px;
+      color: $text-light;
+      opacity: 0.7;
+      word-break: break-all;
+      font-family: monospace;
+    }
+  }
+
+  .meme-info {
+    text-align: center;
+  }
+
+  .meme-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: $text;
+  }
+
+  .meme-description {
+    font-size: 14px;
+    color: $text-light;
+    margin: 0 0 8px 0;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .meme-date {
+    font-size: 12px;
+    color: $text-light;
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  .no-data {
+    padding: 24px;
+    text-align: center;
+    color: $text-light;
+    background: $bg-gray;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px;
+
+    .meme-image {
+      max-width: 100%;
+    }
+
+    .meme-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+
 .onboarding-page {
   min-height: 100vh;
   display: flex;
