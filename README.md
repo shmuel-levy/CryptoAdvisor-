@@ -44,15 +44,20 @@ The app will be available at `http://localhost:5173`
 
 ### Environment Variables
 
-Create `.env.local` file:
+Create `.env.local` file in the root directory:
 
 ```env
+# Backend API URL
+# Development: http://localhost:3030/api
+# Production: /api (relative path)
 VITE_API_BASE_URL=http://localhost:3030/api
+
+# Optional: AI Service API Keys (if calling from frontend)
+# VITE_OPENROUTER_API_KEY=your-key-here
+# VITE_HF_API_KEY=your-key-here
 ```
 
-**Optional:**
-- `VITE_OPENROUTER_API_KEY` - For AI insights (if calling from frontend)
-- `VITE_HF_API_KEY` - Alternative AI provider
+**Note**: The `.env.local` file is gitignored. Copy the values above and create your own file.
 
 ## Scripts
 
