@@ -123,6 +123,15 @@ input[type="password"] {
   }
 }
 
+// Utilities
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: $text-light;
+}
+
 // Pages
 .login-page {
   min-height: 100vh;
