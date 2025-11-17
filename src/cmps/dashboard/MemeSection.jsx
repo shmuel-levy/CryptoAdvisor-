@@ -1,9 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
+
+// Available meme images in public/imgs folder
+const MEME_IMAGES = [
+    'alt coins are pumping.png',
+    'bitcoin-memes-2024.png',
+    'john-wick-vs-john-weak-crypto-meme.png',
+    'remember all of that money we saved for the house.jpeg',
+    'should I sell bitcoin.png',
+    'trading crypto.jpg',
+    'unnamed (1).png',
+    'unnamed.png'
+]
 
 export function MemeSection({ meme }) {
     const [imageError, setImageError] = useState(false)
+    
+    // Randomly select a meme image on component mount
+    const randomMemeImage = useMemo(() => {
+        const randomIndex = Math.floor(Math.random() * MEME_IMAGES.length)
+        return `/imgs/${MEME_IMAGES[randomIndex]}`
+    }, [])
 
-    if (!meme || !meme.url) {
+    if (!meme) {
         return (
             <div className="meme-section">
                 <h2>Crypto Meme of the Day</h2>
@@ -41,11 +59,11 @@ export function MemeSection({ meme }) {
                 {imageError ? (
                     <div className="meme-error">
                         <p>Image failed to load</p>
-                        <p className="meme-url-hint">{meme.url}</p>
+                        <p className="meme-url-hint">{randomMemeImage}</p>
                     </div>
                 ) : (
                     <img 
-                        src={meme.url} 
+                        src={randomMemeImage} 
                         alt={meme.title || 'Crypto meme'}
                         className="meme-image"
                         onError={handleImageError}
