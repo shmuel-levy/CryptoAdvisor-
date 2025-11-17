@@ -233,6 +233,18 @@ export function Onboarding() {
 
     return (
         <section className="onboarding-page">
+            <video
+                className="onboarding-video-bg"
+                autoPlay
+                loop
+                muted
+                playsInline
+            >
+                <source src="/videos/onboarding-bg.mp4" type="video/mp4" />
+                <source src="/videos/onboarding-bg.webm" type="video/webm" />
+                Your browser does not support the video tag.
+            </video>
+            <div className="video-overlay"></div>
             <div className="onboarding-container">
                 <div className="onboarding-header">
                     <h1>Welcome! Let's personalize your experience</h1>
