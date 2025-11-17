@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useAuth } from '../contexts/AuthContext'
 import { login, signup } from '../store/user.actions'
+import { preferencesService } from '../services/preferences.service'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 
 export function LoginSignup() {
@@ -37,9 +38,18 @@ export function LoginSignup() {
             // Store token and user in AuthContext
             authLogin(response.token, response.user)
             
-            // Check if user has completed onboarding (you can add this check later)
-            // For now, always redirect to onboarding
-            navigate('/onboarding')
+            // Check if user has completed onboarding
+            try {
+                const prefsResponse = await preferencesService.getPreferences()
+                if (prefsResponse?.preferences?.completedOnboarding || prefsResponse?.completedOnboarding) {
+                    navigate('/dashboard')
+                } else {
+                    navigate('/onboarding')
+                }
+            } catch (err) {
+                // If error checking preferences, go to onboarding
+                navigate('/onboarding')
+            }
         } catch (err) {
             const msg = err?.response?.data?.message || err?.message || 'Authentication failed, try again later.'
             setErrorMsg(msg)
@@ -49,6 +59,18 @@ export function LoginSignup() {
 
     return (
         <section className="login-page">
+            <video
+                className="login-video-bg"
+                autoPlay
+                loop
+                muted
+                playsInline
+            >
+                <source src="/videos/login-bg.mp4" type="video/mp4" />
+                <source src="/videos/login-bg.webm" type="video/webm" />
+                Your browser does not support the video tag.
+            </video>
+            <div className="video-overlay"></div>
             <div className="main-container">
                 <h1>Moveo AI Crypto Advisor</h1>
                 <h3>{isSignup ? 'Create your account' : 'Log in to your account'}</h3>
