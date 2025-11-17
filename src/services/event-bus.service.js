@@ -29,4 +29,6 @@ export function showErrorMsg(txt) {
     showUserMsg({txt, type: 'error'})
 }
 
-window.showUserMsg = showUserMsg
+if (process.env.NODE_ENV === 'development') {
+    window.showUserMsg = showUserMsg
+}

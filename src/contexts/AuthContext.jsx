@@ -32,7 +32,9 @@ export function AuthProvider({ children }) {
         setUser(storedUser)
         setIsAuthenticated(true)
       } catch (err) {
-        console.error('Error loading auth data:', err)
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Error loading auth data:', err)
+        }
         clearAuth()
       }
     }

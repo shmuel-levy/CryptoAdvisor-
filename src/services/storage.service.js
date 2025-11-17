@@ -12,7 +12,9 @@ export const storageService = {
                 localStorage.setItem(key, JSON.stringify(value))
             }
         } catch (err) {
-            console.error('Error saving to localStorage:', err)
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Error saving to localStorage:', err)
+            }
         }
     },
 
@@ -28,7 +30,9 @@ export const storageService = {
                 return data
             }
         } catch (err) {
-            console.error('Error loading from localStorage:', err)
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Error loading from localStorage:', err)
+            }
             return null
         }
     },
@@ -37,7 +41,9 @@ export const storageService = {
         try {
             localStorage.removeItem(key)
         } catch (err) {
-            console.error('Error removing from localStorage:', err)
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Error removing from localStorage:', err)
+            }
         }
     },
 
@@ -45,7 +51,9 @@ export const storageService = {
         try {
             localStorage.clear()
         } catch (err) {
-            console.error('Error clearing localStorage:', err)
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Error clearing localStorage:', err)
+            }
         }
     },
 
@@ -58,7 +66,9 @@ export const storageService = {
                 sessionStorage.setItem(key, JSON.stringify(value))
             }
         } catch (err) {
-            console.error('Error saving to sessionStorage:', err)
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Error saving to sessionStorage:', err)
+            }
         }
     },
 
@@ -74,7 +84,9 @@ export const storageService = {
                 return data
             }
         } catch (err) {
-            console.error('Error loading from sessionStorage:', err)
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Error loading from sessionStorage:', err)
+            }
             return null
         }
     },
@@ -83,7 +95,9 @@ export const storageService = {
         try {
             sessionStorage.removeItem(key)
         } catch (err) {
-            console.error('Error removing from sessionStorage:', err)
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Error removing from sessionStorage:', err)
+            }
         }
     },
 
@@ -91,7 +105,9 @@ export const storageService = {
         try {
             sessionStorage.clear()
         } catch (err) {
-            console.error('Error clearing sessionStorage:', err)
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Error clearing sessionStorage:', err)
+            }
         }
     }
 }

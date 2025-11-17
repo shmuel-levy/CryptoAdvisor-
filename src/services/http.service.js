@@ -64,8 +64,10 @@ async function ajax(endpoint, method = 'GET', data = null) {
         const res = await axios(options)
         return res.data
     } catch (err) {
-        console.error(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: `, data)
-        console.dir(err)
+        if (process.env.NODE_ENV === 'development') {
+            console.error(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: `, data)
+            console.dir(err)
+        }
         throw err
     }
 }
