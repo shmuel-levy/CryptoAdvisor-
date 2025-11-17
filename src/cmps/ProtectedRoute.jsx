@@ -6,7 +6,7 @@ export function ProtectedRoute({ children }) {
 
   if (isLoading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <div className="loading-container">
         <p>Loading...</p>
       </div>
     )

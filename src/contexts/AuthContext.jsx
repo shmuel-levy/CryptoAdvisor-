@@ -12,6 +12,15 @@ export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
+  function clearAuth() {
+    storageService.remove(TOKEN_KEY)
+    storageService.remove(USER_KEY)
+    storageService.removeSession('loggedinUser')
+    setToken(null)
+    setUser(null)
+    setIsAuthenticated(false)
+  }
+
   // Load token and user from storage on mount
   useEffect(() => {
     const storedToken = storageService.load(TOKEN_KEY)
@@ -40,15 +49,6 @@ export function AuthProvider({ children }) {
 
   function logout() {
     clearAuth()
-  }
-
-  function clearAuth() {
-    storageService.remove(TOKEN_KEY)
-    storageService.remove(USER_KEY)
-    storageService.removeSession('loggedinUser') // Clear old session storage too
-    setToken(null)
-    setUser(null)
-    setIsAuthenticated(false)
   }
 
   const value = {
