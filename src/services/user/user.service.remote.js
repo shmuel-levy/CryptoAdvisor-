@@ -43,6 +43,11 @@ async function login(userCred) {
         email: userCred.email,
         password: userCred.password
     })
+    
+    if (!response || !response.token || !response.user) {
+        throw new Error('Invalid response from server')
+    }
+    
     // Return both token and user for AuthContext
     return {
         token: response.token,
@@ -61,6 +66,11 @@ async function signup(userCred) {
         password: userCred.password,
         role: userCred.role || 'user'
     })
+    
+    if (!response || !response.token || !response.user) {
+        throw new Error('Invalid response from server')
+    }
+    
     // Return both token and user for AuthContext
     return {
         token: response.token,
