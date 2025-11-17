@@ -6,6 +6,7 @@ import { Dashboard } from "./pages/Dashboard.jsx";
 import { Onboarding } from "./pages/Onboarding.jsx";
 import { UserMsg } from "./cmps/UserMsg.jsx";
 import { ProtectedRoute } from "./cmps/ProtectedRoute.jsx";
+import { OnboardingGuard } from "./cmps/OnboardingGuard.jsx";
 
 export function RootCmp() {
   return (
@@ -18,7 +19,9 @@ export function RootCmp() {
           path="/onboarding"
           element={
             <ProtectedRoute>
-              <Onboarding />
+              <OnboardingGuard>
+                <Onboarding />
+              </OnboardingGuard>
             </ProtectedRoute>
           }
         />
