@@ -8,6 +8,7 @@ import { CoinPricesSection } from '../cmps/dashboard/CoinPricesSection'
 import { MarketNewsSection } from '../cmps/dashboard/MarketNewsSection'
 import { AIInsightSection } from '../cmps/dashboard/AIInsightSection'
 import { MemeSection } from '../cmps/dashboard/MemeSection'
+import { Loader } from '../cmps/Loader'
 
 export function Dashboard() {
   const { user, logout: authLogout } = useAuth()
@@ -27,7 +28,9 @@ export function Dashboard() {
       const response = await dashboardService.getDashboard()
       setDashboardData(response)
     } catch (err) {
-      console.error('Error loading dashboard:', err)
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error loading dashboard:', err)
+      }
       const errorMsg = err?.response?.data?.message || 'Failed to load dashboard. Please try again.'
       setError(errorMsg)
       showErrorMsg(errorMsg)
@@ -49,22 +52,16 @@ export function Dashboard() {
       showSuccessMsg('Logged out successfully')
       navigate('/login')
     } catch (err) {
-      console.error('Logout error:', err)
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Logout error:', err)
+      }
       authLogout()
       navigate('/login')
     }
   }
 
   if (loading) {
-    return (
-      <section className="dashboard-page">
-        <div className="dashboard-content">
-          <div className="loading-container">
-            <p>Loading dashboard...</p>
-          </div>
-        </div>
-      </section>
-    )
+    return <Loader />
   }
 
   if (error && !dashboardData) {

@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { login, signup } from '../store/user.actions'
 import { preferencesService } from '../services/preferences.service'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { Loader } from '../cmps/Loader'
 
 export function LoginSignup() {
     const [isSignup, setIsSignup] = useState(false)
@@ -15,6 +16,7 @@ export function LoginSignup() {
         lastName: ''
     })
     const [errorMsg, setErrorMsg] = useState('')
+    const [isSwitching, setIsSwitching] = useState(false)
     const navigate = useNavigate()
     const { login: authLogin } = useAuth()
 
@@ -58,7 +60,7 @@ export function LoginSignup() {
     }
 
     return (
-        <section className="login-page">
+        <section className={`login-page ${isSignup ? 'signup-mode' : 'login-mode'}`}>
             <video
                 className="login-video-bg"
                 autoPlay
@@ -124,12 +126,19 @@ export function LoginSignup() {
                     {isSignup ? 'Already have an account?' : `Don't have an account yet?`}{' '}
                     <button
                         type="button"
-                        onClick={() => setIsSignup(!isSignup)}
+                        onClick={() => {
+                            setIsSwitching(true)
+                            setTimeout(() => {
+                                setIsSignup(!isSignup)
+                                setIsSwitching(false)
+                            }, 5000)
+                        }}
                     >
                         {isSignup ? 'Log in' : 'Sign up'}
                     </button>
                 </p>
             </div>
+            {isSwitching && <Loader />}
         </section>
     )
 }

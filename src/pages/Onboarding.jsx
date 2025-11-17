@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { preferencesService } from '../services/preferences.service'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { Loader } from '../cmps/Loader'
 
 const CRYPTO_ASSETS = ['BTC', 'ETH', 'SOL', 'ADA', 'DOT', 'MATIC', 'AVAX', 'BNB', 'XRP', 'Other']
 const INVESTOR_TYPES = ['HODLer', 'Day Trader', 'NFT Collector', 'DeFi Enthusiast', 'Swing Trader']
@@ -22,6 +23,7 @@ export function Onboarding() {
     })
     const [errors, setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [showLoader, setShowLoader] = useState(false)
     const navigate = useNavigate()
 
     function handleAssetToggle(asset) {
@@ -118,7 +120,10 @@ export function Onboarding() {
         try {
             await preferencesService.savePreferences(formData)
             showSuccessMsg('Preferences saved successfully!')
-            navigate('/dashboard')
+            setShowLoader(true)
+            setTimeout(() => {
+                navigate('/dashboard')
+            }, 5000)
         } catch (err) {
             let errorMsg = 'Failed to save preferences. Please try again.'
             
@@ -137,8 +142,9 @@ export function Onboarding() {
             
             setErrors({ general: errorMsg })
             showErrorMsg(errorMsg)
-            console.error('Onboarding error:', err)
-        } finally {
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Onboarding error:', err)
+            }
             setIsSubmitting(false)
         }
     }
@@ -343,6 +349,7 @@ export function Onboarding() {
                     </div>
                 </form>
             </div>
+            {showLoader && <Loader />}
         </section>
     )
 }
