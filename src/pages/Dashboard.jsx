@@ -67,6 +67,17 @@ export function Dashboard() {
   if (error && !dashboardData) {
     return (
       <section className="dashboard-page">
+        <video
+          className="dashboard-video-bg"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/videos/5372-183629063_tiny.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="video-overlay"></div>
         <div className="dashboard-content">
           <div className="dashboard-header">
             <h1>Dashboard</h1>
@@ -94,6 +105,17 @@ export function Dashboard() {
 
   return (
     <section className="dashboard-page">
+      <video
+        className="dashboard-video-bg"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/videos/5372-183629063_tiny.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div className="video-overlay"></div>
       <div className="dashboard-content">
         <div className="dashboard-header">
           <h1>Dashboard</h1>
