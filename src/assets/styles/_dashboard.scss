@@ -1,0 +1,673 @@
+// Dashboard Page & Sections
+
+@import 'variables';
+
+.dashboard-page {
+  min-height: 100vh;
+  padding: 32px 24px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(37, 99, 235, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .dashboard-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+
+    .dashboard-header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      h1 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #f8fafc;
+        letter-spacing: -0.02em;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .user-greeting {
+          font-size: 16px;
+          color: #cbd5e1;
+          font-weight: 500;
+        }
+
+        .btn-logout {
+          padding: 8px 16px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #f8fafc;
+          background: rgba(37, 99, 235, 0.2);
+          border: 1px solid rgba(37, 99, 235, 0.3);
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.2s;
+          backdrop-filter: blur(10px);
+
+          &:hover {
+            background: rgba(37, 99, 235, 0.3);
+            border-color: rgba(37, 99, 235, 0.5);
+            transform: translateY(-1px);
+          }
+        }
+      }
+    }
+
+    .dashboard-error {
+      padding: 24px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 8px;
+      text-align: center;
+
+      p {
+        color: $error;
+        margin-bottom: 16px;
+      }
+
+      .btn-retry {
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: 500;
+        color: white;
+        background: $primary;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background: $primary-dark;
+        }
+      }
+    }
+
+    .coming-soon-section {
+      padding: 24px;
+      background: $bg;
+      border: 1px solid $border;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      text-align: center;
+
+      h2 {
+        font-size: 20px;
+        font-weight: 600;
+        color: $text;
+        margin-bottom: 8px;
+      }
+
+      p {
+        font-size: 14px;
+        color: $text-light;
+      }
+    }
+  }
+}
+
+// Coin Prices Section
+.coin-prices-section {
+  margin-bottom: 32px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+
+    .header-left {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .updated-at {
+      font-size: 14px;
+      color: #94a3b8;
+      margin: 0;
+    }
+  }
+
+  .no-data {
+    padding: 24px;
+    text-align: center;
+    color: #94a3b8;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 8px;
+  }
+
+  .coins-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .coin-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.5), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    &:hover {
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
+      transform: translateY(-4px);
+      border-color: rgba(37, 99, 235, 0.4);
+
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    .coin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+
+      h3 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #f8fafc;
+        margin: 0;
+        letter-spacing: -0.02em;
+      }
+
+      .coin-id {
+        font-size: 12px;
+        color: #94a3b8;
+        text-transform: capitalize;
+        padding: 4px 8px;
+        background: rgba(37, 99, 235, 0.15);
+        border: 1px solid rgba(37, 99, 235, 0.2);
+        border-radius: 4px;
+      }
+    }
+
+    .coin-price {
+      font-size: 32px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin: 16px 0;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .coin-changes {
+      display: flex;
+      gap: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .change-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .label {
+        font-size: 12px;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .change-value {
+        font-size: 16px;
+        font-weight: 600;
+
+        &.positive {
+          color: $success;
+        }
+
+        &.negative {
+          color: $error;
+        }
+      }
+    }
+  }
+}
+
+// Market News Section
+.market-news-section {
+  margin-bottom: 32px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+
+    .header-left {
+      flex: 1;
+      min-width: 200px;
+
+      .header-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .news-count {
+      background: rgba(37, 99, 235, 0.3);
+      color: #f8fafc;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid rgba(37, 99, 235, 0.4);
+    }
+
+    .updated-at {
+      font-size: 14px;
+      color: #94a3b8;
+      margin: 0;
+    }
+  }
+
+  .no-data {
+    padding: 24px;
+    text-align: center;
+    color: #94a3b8;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 8px;
+  }
+
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .news-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+
+    &:hover {
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
+      transform: translateY(-4px);
+      border-color: rgba(37, 99, 235, 0.4);
+    }
+
+    .news-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 12px;
+
+      h3 {
+        margin: 0;
+        flex: 1;
+      }
+
+      .news-title {
+        color: #f8fafc;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.4;
+        transition: color 0.2s;
+
+        &:hover {
+          color: #60a5fa;
+          text-decoration: underline;
+        }
+      }
+
+      .news-votes {
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+        flex-shrink: 0;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+    }
+
+    .news-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: #94a3b8;
+
+      .news-source {
+        font-weight: 600;
+        color: #60a5fa;
+      }
+
+      .news-date {
+        color: #94a3b8;
+      }
+
+      .news-currencies {
+        background: rgba(37, 99, 235, 0.15);
+        border: 1px solid rgba(37, 99, 235, 0.2);
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #cbd5e1;
+      }
+    }
+  }
+}
+
+// AI Insight Section
+.ai-insight-section {
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.3) 0%, rgba(59, 130, 246, 0.2) 100%);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  border-radius: 16px;
+  padding: 24px;
+  color: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+
+  .insight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .header-left {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .model-badge {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  .insight-content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .insight-text {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+    font-weight: 500;
+    color: white;
+  }
+
+  .insight-date {
+    font-size: 12px;
+    opacity: 0.85;
+    margin: 0;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .no-data {
+    padding: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
+}
+
+// Meme Section
+.meme-section {
+  margin-bottom: 32px;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+
+  .meme-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .header-left {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .meme-source-badge {
+      background: rgba(37, 99, 235, 0.3);
+      color: #f8fafc;
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid rgba(37, 99, 235, 0.4);
+      margin-top: 8px;
+      display: inline-block;
+    }
+  }
+
+  .meme-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .meme-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .meme-error {
+    padding: 40px 20px;
+    text-align: center;
+    color: #94a3b8;
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 8px;
+    border: 1px dashed rgba(148, 163, 184, 0.3);
+    font-size: 14px;
+    max-width: 600px;
+    margin: 0 auto;
+
+    p {
+      margin: 0 0 8px 0;
+    }
+
+    .meme-url-hint {
+      font-size: 12px;
+      color: #94a3b8;
+      opacity: 0.7;
+      word-break: break-all;
+      font-family: monospace;
+    }
+  }
+
+  .meme-info {
+    text-align: center;
+  }
+
+  .meme-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: #f8fafc;
+  }
+
+  .meme-description {
+    font-size: 14px;
+    color: #cbd5e1;
+    margin: 0 0 8px 0;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .meme-date {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  .no-data {
+    padding: 24px;
+    text-align: center;
+    color: #94a3b8;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 8px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px;
+
+    .meme-image {
+      max-width: 100%;
+    }
+
+    .meme-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+
