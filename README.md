@@ -17,6 +17,29 @@ Personalized crypto investor dashboard built with React + Vite. Features real-ti
 - **Video Backgrounds**: Dynamic video backgrounds on login and onboarding pages
 - **Responsive Design**: Works seamlessly on desktop and mobile
 
+## Screenshots
+
+### Coin Prices Dashboard
+![Coin Prices Dashboard](./public/imgs/Capture.PNG)
+
+The **Coin Prices** section displays real-time cryptocurrency prices from CoinGecko API. Each coin card shows the symbol, current price in USD, and 24-hour and 7-day percentage changes. Prices are color-coded (green for positive, red for negative changes) and personalized based on the user's selected interests from onboarding. The section includes a "Last updated" timestamp and feedback buttons for user interaction.
+
+### Market News Section
+![Market News](./public/imgs/Market.PNG)
+
+The **Market News** section aggregates cryptocurrency news articles from CryptoPanic API. Each news card displays the article title (clickable link), source, publication date, vote count, and related currencies. News articles are filtered by the user's preferred coins and content types, ensuring personalized and relevant content. Users can click on article titles to read the full story on the source website.
+
+### AI Insights & Memes
+![AI Insights and Memes](./public/imgs/Meme.PNG)
+
+The dashboard includes two additional personalized sections:
+
+- **AI Insight of the Day**: Features AI-generated insights using OpenRouter API, tailored to the user's investor type, preferred assets, and content preferences. The insight is displayed in a gradient card with glassmorphism effects, showing the generation date and model information.
+
+- **Crypto Meme of the Day**: Displays a randomly selected crypto meme from a curated collection, personalized based on user interests. Each meme includes a title, description, source badge, and fetched date. The memes add a fun, engaging element to the dashboard experience.
+
+Both sections include feedback buttons (thumbs up/down) to help improve future recommendations through machine learning.
+
 ## Tech Stack
 
 - **React 18** - UI framework
