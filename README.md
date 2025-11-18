@@ -207,7 +207,11 @@ All code was reviewed, tested, and refined. AI suggestions were evaluated for:
 
 ## Bonus: ML Training Proposal
 
-See [`ML_TRAINING_PROPOSAL.md`](./ML_TRAINING_PROPOSAL.md) for a detailed proposal on how to train a machine learning model using the feedback data collected from thumbs up/down votes. The proposal covers:
+### Quick Overview
+See [`FEEDBACK_TRAINING_LOOP.md`](./FEEDBACK_TRAINING_LOOP.md) for a visual, executive summary of how feedback is collected, stored, and used to improve recommendations.
+
+### Detailed Technical Proposal
+See [`ML_TRAINING_PROPOSAL.md`](./ML_TRAINING_PROPOSAL.md) for a comprehensive technical proposal covering:
 
 - Data collection and feature engineering
 - Model selection (collaborative filtering, content-based, hybrid)
@@ -216,7 +220,27 @@ See [`ML_TRAINING_PROPOSAL.md`](./ML_TRAINING_PROPOSAL.md) for a detailed propos
 - Continuous learning pipeline
 - A/B testing framework
 
-This document demonstrates understanding of how feedback can be used to improve future recommendations through machine learning.
+### How Feedback is Stored
+
+**Feedback Data Structure**:
+```json
+{
+  "userId": "user123",
+  "sectionType": "coinPrices",  // or "marketNews", "aiInsight", "meme"
+  "vote": "up",                 // or "down"
+  "metadata": {},               // Optional context
+  "timestamp": "2025-01-16T20:00:00.000Z"
+}
+```
+
+**Training Process**:
+1. Collect feedback data (4-8 weeks)
+2. Engineer features from user preferences + feedback patterns
+3. Train ML model to predict user preferences
+4. Deploy recommendation engine
+5. Continuously retrain with new feedback
+
+This demonstrates understanding of how feedback can be used to improve future recommendations through machine learning.
 
 ## License
 
