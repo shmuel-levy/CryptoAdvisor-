@@ -56,7 +56,7 @@ export function MarketNewsSection({ news, count, updatedAt }) {
                                 </a>
                             </h3>
                             {article.votes > 0 && (
-                                <span className="news-votes">👍 {article.votes}</span>
+                                <span className="news-votes">{article.votes} votes</span>
                             )}
                         </div>
 
