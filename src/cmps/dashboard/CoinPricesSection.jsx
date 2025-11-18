@@ -1,4 +1,5 @@
 import React from 'react'
+import { FeedbackButtons } from '../FeedbackButtons'
 
 export function CoinPricesSection({ coins, updatedAt }) {
     if (!coins || coins.length === 0) {
@@ -27,12 +28,15 @@ export function CoinPricesSection({ coins, updatedAt }) {
     return (
         <div className="coin-prices-section">
             <div className="section-header">
-                <h2>Your Watchlist</h2>
-                {updatedAt && (
-                    <p className="updated-at">
-                        Last updated: {new Date(updatedAt).toLocaleString()}
-                    </p>
-                )}
+                <div className="header-left">
+                    <h2>Your Watchlist</h2>
+                    {updatedAt && (
+                        <p className="updated-at">
+                            Last updated: {new Date(updatedAt).toLocaleString()}
+                        </p>
+                    )}
+                </div>
+                <FeedbackButtons sectionType="coinPrices" />
             </div>
             
             <div className="coins-grid">

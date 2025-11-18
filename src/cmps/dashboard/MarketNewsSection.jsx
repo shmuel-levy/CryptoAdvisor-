@@ -1,4 +1,5 @@
 import React from 'react'
+import { FeedbackButtons } from '../FeedbackButtons'
 
 export function MarketNewsSection({ news, count, updatedAt }) {
     if (!news || news.length === 0) {
@@ -24,17 +25,20 @@ export function MarketNewsSection({ news, count, updatedAt }) {
     return (
         <div className="market-news-section">
             <div className="section-header">
-                <div className="header-title">
-                    <h2>Market News</h2>
-                    {count > 0 && (
-                        <span className="news-count">{count} articles</span>
+                <div className="header-left">
+                    <div className="header-title">
+                        <h2>Market News</h2>
+                        {count > 0 && (
+                            <span className="news-count">{count} articles</span>
+                        )}
+                    </div>
+                    {updatedAt && (
+                        <p className="updated-at">
+                            Updated: {formatDate(updatedAt)}
+                        </p>
                     )}
                 </div>
-                {updatedAt && (
-                    <p className="updated-at">
-                        Updated: {formatDate(updatedAt)}
-                    </p>
-                )}
+                <FeedbackButtons sectionType="marketNews" />
             </div>
 
             <div className="news-list">

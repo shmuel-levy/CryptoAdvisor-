@@ -1,4 +1,5 @@
 import React from 'react'
+import { FeedbackButtons } from '../FeedbackButtons'
 
 export function AIInsightSection({ insight, generatedAt, model }) {
     if (!insight) {
@@ -24,10 +25,13 @@ export function AIInsightSection({ insight, generatedAt, model }) {
     return (
         <div className="ai-insight-section">
             <div className="insight-header">
-                <h2>AI Insight of the Day</h2>
-                {model && model !== 'fallback' && (
-                    <span className="model-badge">Powered by {model}</span>
-                )}
+                <div className="header-left">
+                    <h2>AI Insight of the Day</h2>
+                    {model && model !== 'fallback' && (
+                        <span className="model-badge">Powered by {model}</span>
+                    )}
+                </div>
+                <FeedbackButtons sectionType="aiInsight" />
             </div>
 
             <div className="insight-content">

@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react'
+import { FeedbackButtons } from '../FeedbackButtons'
 
 // Available meme images in public/imgs folder
 const MEME_IMAGES = [
@@ -49,10 +50,13 @@ export function MemeSection({ meme }) {
     return (
         <div className="meme-section">
             <div className="meme-header">
-                <h2>Crypto Meme of the Day</h2>
-                {meme.source && (
-                    <span className="meme-source-badge">via {meme.source}</span>
-                )}
+                <div className="header-left">
+                    <h2>Crypto Meme of the Day</h2>
+                    {meme.source && (
+                        <span className="meme-source-badge">via {meme.source}</span>
+                    )}
+                </div>
+                <FeedbackButtons sectionType="meme" />
             </div>
 
             <div className="meme-content">

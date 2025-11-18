@@ -74,8 +74,8 @@ async function ajax(endpoint, method = 'GET', data = null) {
     const url = `${BASE_URL}${cleanEndpoint}`
     const params = (method === 'GET') ? data : null
 
-    // Debug logging (always show in browser for troubleshooting)
-    if (typeof window !== 'undefined') {
+    // Debug logging (only in development)
+    if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
         console.log(`[HTTP ${method}] ${url}`)
         console.log(`[BASE_URL] ${BASE_URL}`)
         console.log(`[ENV VITE_API_URL] ${import.meta.env.VITE_API_URL}`)

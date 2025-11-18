@@ -482,7 +482,17 @@ input[type="password"] {
   margin-bottom: 32px;
 
   .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
     margin-bottom: 24px;
+    flex-wrap: wrap;
+
+    .header-left {
+      flex: 1;
+      min-width: 200px;
+    }
 
     h2 {
       font-size: 24px;
@@ -602,13 +612,23 @@ input[type="password"] {
   margin-bottom: 32px;
 
   .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
     margin-bottom: 24px;
+    flex-wrap: wrap;
 
-    .header-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 8px;
+    .header-left {
+      flex: 1;
+      min-width: 200px;
+
+      .header-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
     }
 
     h2 {
@@ -741,10 +761,15 @@ input[type="password"] {
   .insight-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 20px;
     flex-wrap: wrap;
     gap: 12px;
+
+    .header-left {
+      flex: 1;
+      min-width: 200px;
+    }
 
     h2 {
       font-size: 24px;
@@ -810,10 +835,15 @@ input[type="password"] {
   .meme-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 20px;
     flex-wrap: wrap;
     gap: 12px;
+
+    .header-left {
+      flex: 1;
+      min-width: 200px;
+    }
 
     h2 {
       font-size: 24px;
@@ -1230,6 +1260,138 @@ input[type="password"] {
       &:disabled {
         opacity: 0.6;
         cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// Feedback Buttons
+.feedback-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  .feedback-btn {
+    background: $bg;
+    border: 1px solid $border;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 36px;
+    color: $text;
+    position: relative;
+
+    .feedback-icon {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2;
+      transition: all 0.2s ease;
+    }
+
+    .feedback-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    &:hover:not(:disabled) {
+      background: $bg-gray;
+      border-color: $primary;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    &.active {
+      border-width: 2px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+      .feedback-icon {
+        stroke-width: 2.5;
+      }
+    }
+
+    &.feedback-up {
+      &:hover:not(:disabled) {
+        border-color: $success;
+        color: $success;
+      }
+
+      &.active {
+        background: $success;
+        border-color: $success;
+        color: white;
+        box-shadow: 0 2px 12px rgba(16, 185, 129, 0.25);
+      }
+    }
+
+    &.feedback-down {
+      &:hover:not(:disabled) {
+        border-color: $error;
+        color: $error;
+      }
+
+      &.active {
+        background: $error;
+        border-color: $error;
+        color: white;
+        box-shadow: 0 2px 12px rgba(239, 68, 68, 0.25);
+      }
+    }
+  }
+}
+
+// Special styling for feedback buttons in AI Insight section (white background)
+.ai-insight-section {
+  .feedback-buttons {
+    .feedback-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: white;
+      backdrop-filter: blur(10px);
+
+      .feedback-icon {
+        stroke: white;
+      }
+
+      &:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      &.active {
+        background: rgba(255, 255, 255, 0.35);
+        border-color: rgba(255, 255, 255, 0.7);
+        color: white;
+        box-shadow: 0 2px 12px rgba(255, 255, 255, 0.2);
+      }
+
+      &.feedback-up.active {
+        background: rgba(16, 185, 129, 0.8);
+        border-color: rgba(16, 185, 129, 1);
+      }
+
+      &.feedback-down.active {
+        background: rgba(239, 68, 68, 0.8);
+        border-color: rgba(239, 68, 68, 1);
       }
     }
   }
