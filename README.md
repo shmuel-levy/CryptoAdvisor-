@@ -11,6 +11,7 @@ Personalized crypto investor dashboard built with React + Vite. Features real-ti
   - Market news (CryptoPanic API)
   - AI-generated insights (personalized)
   - Crypto memes (random, personalized)
+- **User Feedback**: Thumbs up/down voting on all dashboard sections
 - **Video Backgrounds**: Dynamic video backgrounds on login and onboarding pages
 - **Responsive Design**: Works seamlessly on desktop and mobile
 
@@ -115,6 +116,7 @@ src/
 - `GET /api/user/preferences` - Get user preferences
 - `POST /api/user/preferences` - Save user preferences
 - `GET /api/dashboard` - Get personalized dashboard data
+- `POST /api/user/feedback` - Submit user feedback (thumbs up/down)
 
 ### Authentication
 
@@ -167,13 +169,54 @@ Output: `dist/` folder ready for static hosting
 - All API calls include automatic error handling
 - Video backgrounds autoplay (muted, looped)
 
+## AI Tools Usage Summary
+
+This project was developed with assistance from AI coding tools (Cursor AI). Below is a summary of how AI was used:
+
+### Development Process
+- **Code Generation**: AI assisted with generating React components, service files, and styling
+- **Architecture Decisions**: AI helped structure the project following React best practices
+- **Debugging**: AI assisted in identifying and fixing bugs, especially around JWT authentication and API integration
+- **Documentation**: AI helped create comprehensive README and technical documentation
+
+### Key AI-Assisted Areas
+1. **Component Structure**: React component patterns and hooks usage
+2. **State Management**: Redux store setup and Context API for authentication
+3. **API Integration**: HTTP service with interceptors for JWT token management
+4. **Styling**: SCSS organization and responsive design patterns
+5. **Error Handling**: Comprehensive error handling across all API calls
+
+### Human Oversight
+All code was reviewed, tested, and refined. AI suggestions were evaluated for:
+- Code quality and maintainability
+- Security best practices (especially for authentication)
+- Performance considerations
+- User experience
+
+### Tools Used
+- **Cursor AI**: Primary coding assistant for development
+- **GitHub Copilot**: Not used
+- **ChatGPT**: Not used
+
 ## Future Enhancements
 
-- [ ] User feedback system (thumbs up/down on widgets)
 - [ ] Widget customization (drag & drop dashboard)
 - [ ] Real-time price updates (WebSocket)
 - [ ] Advanced charting for coin prices
 - [ ] User settings page
+
+## Bonus: ML Training Proposal
+
+See [`ML_TRAINING_PROPOSAL.md`](./ML_TRAINING_PROPOSAL.md) for a detailed proposal on how to train a machine learning model using the feedback data collected from thumbs up/down votes. The proposal covers:
+
+- Data collection and feature engineering
+- Model selection (collaborative filtering, content-based, hybrid)
+- Training strategy and evaluation metrics
+- Recommendation engine implementation
+- Continuous learning pipeline
+- A/B testing framework
+
+This document demonstrates understanding of how feedback can be used to improve future recommendations through machine learning.
 
 ## License
 
