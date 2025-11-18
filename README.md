@@ -2,6 +2,8 @@
 
 Personalized crypto investor dashboard built with React + Vite. Features real-time coin prices, market news, AI insights, and crypto memes tailored to each user's preferences.
 
+🌐 **Live Demo**: [https://crypto-advisor-three.vercel.app/](https://crypto-advisor-three.vercel.app/)
+
 ## Features
 
 - **Authentication**: JWT-based login/signup with protected routes
