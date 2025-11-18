@@ -17,6 +17,7 @@ export function LoginSignup() {
     })
     const [errorMsg, setErrorMsg] = useState('')
     const [isSwitching, setIsSwitching] = useState(false)
+    const [isLoadingAfterSignup, setIsLoadingAfterSignup] = useState(false)
     const navigate = useNavigate()
     const { login: authLogin } = useAuth()
 
@@ -32,30 +33,54 @@ export function LoginSignup() {
             if (isSignup) {
                 response = await signup(credentials)
                 showSuccessMsg(`Welcome, ${response.user.firstName || response.user.email}`)
+                
+                // Store token and user in AuthContext
+                authLogin(response.token, response.user)
+                
+                // Show loader for 8 seconds after signup
+                setIsLoadingAfterSignup(true)
+                
+                // Wait 8 seconds before navigating
+                setTimeout(async () => {
+                    // Check if user has completed onboarding
+                    try {
+                        const prefsResponse = await preferencesService.getPreferences()
+                        if (prefsResponse?.preferences?.completedOnboarding || prefsResponse?.completedOnboarding) {
+                            navigate('/dashboard')
+                        } else {
+                            navigate('/onboarding')
+                        }
+                    } catch (err) {
+                        // If error checking preferences, go to onboarding
+                        navigate('/onboarding')
+                    }
+                    setIsLoadingAfterSignup(false)
+                }, 8000) // 8 seconds for signup
             } else {
                 response = await login({ email: credentials.email, password: credentials.password })
                 showSuccessMsg(`Welcome back, ${response.user.firstName || response.user.email}`)
-            }
-            
-            // Store token and user in AuthContext
-            authLogin(response.token, response.user)
-            
-            // Check if user has completed onboarding
-            try {
-                const prefsResponse = await preferencesService.getPreferences()
-                if (prefsResponse?.preferences?.completedOnboarding || prefsResponse?.completedOnboarding) {
-                    navigate('/dashboard')
-                } else {
+                
+                // Store token and user in AuthContext
+                authLogin(response.token, response.user)
+                
+                // Check if user has completed onboarding (no special loader for login)
+                try {
+                    const prefsResponse = await preferencesService.getPreferences()
+                    if (prefsResponse?.preferences?.completedOnboarding || prefsResponse?.completedOnboarding) {
+                        navigate('/dashboard')
+                    } else {
+                        navigate('/onboarding')
+                    }
+                } catch (err) {
+                    // If error checking preferences, go to onboarding
                     navigate('/onboarding')
                 }
-            } catch (err) {
-                // If error checking preferences, go to onboarding
-                navigate('/onboarding')
             }
         } catch (err) {
             const msg = err?.response?.data?.message || err?.message || 'Authentication failed, try again later.'
             setErrorMsg(msg)
             showErrorMsg(msg)
+            setIsLoadingAfterSignup(false) // Hide loader on error
         }
     }
 
@@ -138,7 +163,7 @@ export function LoginSignup() {
                     </button>
                 </p>
             </div>
-            {isSwitching && <Loader />}
+            {(isSwitching || isLoadingAfterSignup) && <Loader />}
         </section>
     )
 }
